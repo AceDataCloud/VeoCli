@@ -3,8 +3,7 @@
 import click
 
 from veo_cli.core.config import settings
-from veo_cli.core.output import console, print_models
-from veo_cli.core.output import ASPECT_RATIOS
+from veo_cli.core.output import ASPECT_RATIOS, console, print_models
 
 
 @click.command()

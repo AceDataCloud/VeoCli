@@ -102,7 +102,6 @@ class TestGenerateCommands:
         result = runner.invoke(cli, ["--token", "", "generate", "test"])
         assert result.exit_code != 0
 
-
     @respx.mock
     def test_image_to_video_json(self, runner, mock_video_response):
         respx.post("https://api.acedata.cloud/veo/videos").mock(
@@ -124,7 +123,6 @@ class TestGenerateCommands:
         data = json.loads(result.output)
         assert data["success"] is True
 
-
     @respx.mock
     def test_upscale_json(self, runner, mock_video_response):
         respx.post("https://api.acedata.cloud/veo/videos").mock(
@@ -135,7 +133,6 @@ class TestGenerateCommands:
             ["--token", "test-token", "upscale", "video-123", "--json"],
         )
         assert result.exit_code == 0
-
 
 
 # ─── Task Commands ─────────────────────────────────────────────────────────

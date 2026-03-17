@@ -1,15 +1,15 @@
 """Tests for output formatting."""
 
 from veo_cli.core.output import (
+    ASPECT_RATIOS,
     DEFAULT_MODEL,
     VEO_MODELS,
     print_error,
-    print_video_result,
     print_json,
     print_models,
     print_success,
     print_task_result,
-    ASPECT_RATIOS,
+    print_video_result,
 )
 
 
@@ -23,7 +23,7 @@ class TestConstants:
         assert DEFAULT_MODEL in VEO_MODELS
 
     def test_models_include_all(self):
-        for model in ['veo3', 'veo3-fast', 'veo31', 'veo31-fast', 'veo2', 'veo2-fast']:
+        for model in ["veo3", "veo3-fast", "veo31", "veo31-fast", "veo2", "veo2-fast"]:
             assert model in VEO_MODELS
 
     def test_aspect_ratios(self):

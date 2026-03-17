@@ -11,9 +11,9 @@ from importlib import metadata
 import click
 from dotenv import load_dotenv
 
-from veo_cli.commands.video import generate, upscale, image_to_video
+from veo_cli.commands.info import aspect_ratios, config, models
 from veo_cli.commands.task import task, tasks_batch, wait
-from veo_cli.commands.info import models, config, aspect_ratios
+from veo_cli.commands.video import generate, image_to_video, upscale
 
 load_dotenv()
 

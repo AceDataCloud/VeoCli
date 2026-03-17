@@ -5,7 +5,13 @@ import click
 from veo_cli.core.client import get_client
 from veo_cli.core.exceptions import VeoError
 from veo_cli.core.output import (
-    VEO_MODELS, DEFAULT_MODEL, print_error, print_json, print_video_result, ASPECT_RATIOS, DEFAULT_ASPECT_RATIO,
+    ASPECT_RATIOS,
+    DEFAULT_ASPECT_RATIO,
+    DEFAULT_MODEL,
+    VEO_MODELS,
+    print_error,
+    print_json,
+    print_video_result,
 )
 
 
@@ -158,4 +164,3 @@ def upscale(
     except VeoError as e:
         print_error(e.message)
         raise SystemExit(1) from e
-
