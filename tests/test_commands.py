@@ -80,6 +80,28 @@ class TestGenerateCommands:
         assert result.exit_code == 0
 
     @respx.mock
+    def test_generate_with_veo31_fast_ingredient(self, runner, mock_video_response):
+        respx.post("https://api.acedata.cloud/veo/videos").mock(
+            return_value=Response(200, json=mock_video_response)
+        )
+        result = runner.invoke(
+            cli,
+            ["--token", "test-token", "generate", "test", "-m", "veo31-fast-ingredient", "--json"],
+        )
+        assert result.exit_code == 0
+
+    @respx.mock
+    def test_generate_with_portrait_aspect_ratio(self, runner, mock_video_response):
+        respx.post("https://api.acedata.cloud/veo/videos").mock(
+            return_value=Response(200, json=mock_video_response)
+        )
+        result = runner.invoke(
+            cli,
+            ["--token", "test-token", "generate", "test", "-a", "9:16", "--json"],
+        )
+        assert result.exit_code == 0
+
+    @respx.mock
     def test_generate_with_callback(self, runner, mock_video_response):
         respx.post("https://api.acedata.cloud/veo/videos").mock(
             return_value=Response(200, json=mock_video_response)
@@ -178,11 +200,13 @@ class TestInfoCommands:
         result = runner.invoke(cli, ["models"])
         assert result.exit_code == 0
         assert "veo3" in result.output
+        assert "veo31-fast-ingredient" in result.output
 
     def test_aspect_ratios(self, runner):
         result = runner.invoke(cli, ["aspect-ratios"])
         assert result.exit_code == 0
         assert "16:9" in result.output
+        assert "9:16" in result.output
 
     def test_config(self, runner):
         result = runner.invoke(cli, ["config"])
