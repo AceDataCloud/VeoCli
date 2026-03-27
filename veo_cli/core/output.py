@@ -15,6 +15,7 @@ VEO_MODELS = [
     "veo3-fast",
     "veo31",
     "veo31-fast",
+    "veo31-fast-ingredient",
     "veo2",
     "veo2-fast",
 ]
@@ -24,6 +25,7 @@ DEFAULT_MODEL = "veo3"
 # Available aspect ratios
 ASPECT_RATIOS = [
     "16:9",
+    "9:16",
     "3:4",
     "4:3",
     "1:1",
@@ -137,6 +139,11 @@ def print_models() -> None:
         "veo31-fast",
         "V3.1 Fast",
         "Fast next-gen model",
+    )
+    table.add_row(
+        "veo31-fast-ingredient",
+        "V3.1 Fast Ingredient",
+        "Ingredient-based fast next-gen model",
     )
     table.add_row(
         "veo2",
