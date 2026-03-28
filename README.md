@@ -103,8 +103,10 @@ veo models
 Most commands support:
 
 ```
---json          Output raw JSON (for piping/scripting)
---model TEXT    Veo model version (default: veo3)
+--json                        Output raw JSON (for piping/scripting)
+--model TEXT                  Veo model version (default: veo3)
+--resolution TEXT             Output resolution: 4k, 1080p, gif (generate and image-to-video)
+--translation/--no-translation  Enable automatic prompt translation (generate and image-to-video)
 ```
 
 ## Available Models

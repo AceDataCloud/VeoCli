@@ -31,6 +31,13 @@ ASPECT_RATIOS = [
     "1:1",
 ]
 
+# Available resolutions
+RESOLUTIONS = [
+    "4k",
+    "1080p",
+    "gif",
+]
+
 DEFAULT_ASPECT_RATIO = "16:9"
 
 

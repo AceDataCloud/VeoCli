@@ -3,6 +3,7 @@
 from veo_cli.core.output import (
     ASPECT_RATIOS,
     DEFAULT_MODEL,
+    RESOLUTIONS,
     VEO_MODELS,
     print_error,
     print_json,
@@ -23,13 +24,26 @@ class TestConstants:
         assert DEFAULT_MODEL in VEO_MODELS
 
     def test_models_include_all(self):
-        for model in ["veo3", "veo3-fast", "veo31", "veo31-fast", "veo31-fast-ingredient", "veo2", "veo2-fast"]:
+        for model in [
+            "veo3",
+            "veo3-fast",
+            "veo31",
+            "veo31-fast",
+            "veo31-fast-ingredient",
+            "veo2",
+            "veo2-fast",
+        ]:
             assert model in VEO_MODELS
 
     def test_aspect_ratios(self):
         assert len(ASPECT_RATIOS) == 5
         assert "16:9" in ASPECT_RATIOS
         assert "9:16" in ASPECT_RATIOS
+
+    def test_resolutions(self):
+        assert "4k" in RESOLUTIONS
+        assert "1080p" in RESOLUTIONS
+        assert "gif" in RESOLUTIONS
 
 
 class TestPrintJson:

@@ -8,6 +8,7 @@ from veo_cli.core.output import (
     ASPECT_RATIOS,
     DEFAULT_ASPECT_RATIO,
     DEFAULT_MODEL,
+    RESOLUTIONS,
     VEO_MODELS,
     print_error,
     print_json,
@@ -31,6 +32,18 @@ from veo_cli.core.output import (
     default=DEFAULT_ASPECT_RATIO,
     help="Aspect ratio of the output.",
 )
+@click.option(
+    "-r",
+    "--resolution",
+    type=click.Choice(RESOLUTIONS),
+    default=None,
+    help="Output resolution (4k, 1080p, gif).",
+)
+@click.option(
+    "--translation/--no-translation",
+    default=None,
+    help="Enable automatic prompt translation.",
+)
 @click.option("--callback-url", default=None, help="Webhook callback URL.")
 @click.option("--json", "output_json", is_flag=True, help="Output raw JSON.")
 @click.pass_context
@@ -39,6 +52,8 @@ def generate(
     prompt: str,
     model: str,
     aspect_ratio: str,
+    resolution: str | None,
+    translation: bool | None,
     callback_url: str | None,
     output_json: bool,
 ) -> None:
@@ -55,10 +70,13 @@ def generate(
     client = get_client(ctx.obj.get("token"))
     try:
         payload: dict[str, object] = {
+            "action": "text2video",
             "prompt": prompt,
             "model": model,
             "callback_url": callback_url,
             "aspect_ratio": aspect_ratio,
+            "resolution": resolution,
+            "translation": translation,
         }
 
         result = client.generate_video(**payload)  # type: ignore[arg-type]
@@ -95,6 +113,18 @@ def generate(
     default=DEFAULT_ASPECT_RATIO,
     help="Aspect ratio of the output.",
 )
+@click.option(
+    "-r",
+    "--resolution",
+    type=click.Choice(RESOLUTIONS),
+    default=None,
+    help="Output resolution (4k, 1080p, gif).",
+)
+@click.option(
+    "--translation/--no-translation",
+    default=None,
+    help="Enable automatic prompt translation.",
+)
 @click.option("--callback-url", default=None, help="Webhook callback URL.")
 @click.option("--json", "output_json", is_flag=True, help="Output raw JSON.")
 @click.pass_context
@@ -104,6 +134,8 @@ def image_to_video(
     image_urls: tuple[str, ...],
     model: str,
     aspect_ratio: str,
+    resolution: str | None,
+    translation: bool | None,
     callback_url: str | None,
     output_json: bool,
 ) -> None:
@@ -120,10 +152,13 @@ def image_to_video(
     client = get_client(ctx.obj.get("token"))
     try:
         result = client.generate_video(
+            action="image2video",
             prompt=prompt,
             image_urls=list(image_urls),
             model=model,
             aspect_ratio=aspect_ratio,
+            resolution=resolution,
+            translation=translation,
             callback_url=callback_url,
         )
         if output_json:
@@ -155,6 +190,7 @@ def upscale(
     client = get_client(ctx.obj.get("token"))
     try:
         result = client.upscale_video(
+            action="get1080p",
             video_id=video_id,
         )
         if output_json:
