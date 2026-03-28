@@ -125,6 +125,28 @@ class TestGenerateCommands:
         assert result.exit_code != 0
 
     @respx.mock
+    def test_generate_with_resolution(self, runner, mock_video_response):
+        respx.post("https://api.acedata.cloud/veo/videos").mock(
+            return_value=Response(200, json=mock_video_response)
+        )
+        result = runner.invoke(
+            cli,
+            ["--token", "test-token", "generate", "test", "-r", "4k", "--json"],
+        )
+        assert result.exit_code == 0
+
+    @respx.mock
+    def test_generate_with_translation(self, runner, mock_video_response):
+        respx.post("https://api.acedata.cloud/veo/videos").mock(
+            return_value=Response(200, json=mock_video_response)
+        )
+        result = runner.invoke(
+            cli,
+            ["--token", "test-token", "generate", "test", "--translation", "--json"],
+        )
+        assert result.exit_code == 0
+
+    @respx.mock
     def test_image_to_video_json(self, runner, mock_video_response):
         respx.post("https://api.acedata.cloud/veo/videos").mock(
             return_value=Response(200, json=mock_video_response)
@@ -144,6 +166,27 @@ class TestGenerateCommands:
         assert result.exit_code == 0
         data = json.loads(result.output)
         assert data["success"] is True
+
+    @respx.mock
+    def test_image_to_video_with_resolution(self, runner, mock_video_response):
+        respx.post("https://api.acedata.cloud/veo/videos").mock(
+            return_value=Response(200, json=mock_video_response)
+        )
+        result = runner.invoke(
+            cli,
+            [
+                "--token",
+                "test-token",
+                "image-to-video",
+                "Animate this",
+                "-i",
+                "https://example.com/photo.jpg",
+                "-r",
+                "1080p",
+                "--json",
+            ],
+        )
+        assert result.exit_code == 0
 
     @respx.mock
     def test_upscale_json(self, runner, mock_video_response):
